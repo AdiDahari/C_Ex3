@@ -37,13 +37,14 @@ int substring( char str1[], char str2[]){
     }
     return 0;
 }
-int similar (char s[], char t[], int n){
+int similar (char *s, char *t, int n){
     int count = 0, j = 0;
     int s_len = strlen(s);
+    if(*(s+s_len-1) == '\r') s_len--;
     int t_len = strlen(t);
     if(s_len - n > t_len) return 0;
     for(int i = 0; i < s_len && j < t_len; i++){
-        if(s[i] != t[j]) count++;
+        if(*(s+i) != *(t+j)) count++;
         else j++;
         if(count > n) return 0;
     }
