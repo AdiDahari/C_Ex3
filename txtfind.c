@@ -110,7 +110,6 @@ int main(){
     int line1 = getline1(text)+1;
     int line2 = getline1(text+line1)+1;
     text += line1+line2;
-    printf("%s\n\n", text);
     if(choose == 'a') print_lines(text);
     else print_similar_words(text);
     return 0;
