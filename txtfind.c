@@ -90,7 +90,6 @@ int main(){
             printf(ALOCFAIL);
             return-1;
         }
-    printf("Please enter the text: \n");
     while(fgets(buffer, 250*LINE , stdin)){
         text = realloc(text, strlen(text)+1+strlen(buffer));
         if(text == NULL){
