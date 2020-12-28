@@ -85,12 +85,12 @@ void print_similar_words(char *str){
 }
 int main(){
     text = calloc(1,sizeof(char));
-    char *buffer = (char*)malloc(250*LINE*sizeof(char));
+    char *buffer = (char*)malloc(LINE*sizeof(char));
     if(buffer == NULL){
             printf(ALOCFAIL);
             return-1;
         }
-    while(fgets(buffer, 250*LINE , stdin)){
+    while(fgets(buffer, LINE , stdin)){
         text = realloc(text, strlen(text)+1+strlen(buffer));
         if(text == NULL){
             printf(ALOCFAIL);
