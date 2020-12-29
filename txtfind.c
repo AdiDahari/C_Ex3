@@ -7,7 +7,7 @@
 #define INV "Invalid input! Try again.\n"
 #define ALOCFAIL "Failed to allocate memory.\n"
 char *search = NULL;
-char *text = NULL;
+char *input = NULL;
 int getline1(char s[]){
     int count = 0;
     char curr = s[count];
@@ -64,6 +64,7 @@ void print_lines(char *str){
         }
         strncpy(line, str+i, line_len);
         if(substring(line, search) == 1) printf("%s\n", line);
+        free(line);
         i+= line_len+1;
     }
 }
@@ -80,37 +81,43 @@ void print_similar_words(char *str){
         }
         strncpy(word, str+i, word_len);
         if(similar(word, search, 1) == 1) printf("%s\n", word);
+        free(word);
         i+=word_len+1;
     }
+    
 }
 int main(){
-    text = calloc(1,sizeof(char));
+    input = calloc(1,sizeof(char));
     char *buffer = (char*)malloc(LINE*sizeof(char));
     if(buffer == NULL){
             printf(ALOCFAIL);
             return-1;
         }
     while(fgets(buffer, LINE , stdin)){
-        text = realloc(text, strlen(text)+1+strlen(buffer));
-        if(text == NULL){
+        input = realloc(input, strlen(input)+1+strlen(buffer));
+        if(input == NULL){
             printf(ALOCFAIL);
             return-1;
         }
-        strcat(text, buffer);
+        strcat(input, buffer);
     }
-    int word = getword(text);
+    free(buffer);
+    int word = getword(input);
     search = (char*)malloc((word+1)*sizeof(char));
-    strncpy(search, text, word);
-    char choose = *(text + word + 1);
+    strncpy(search, input, word);
+    char choose = *(input + word + 1);
     if(choose != 'a' && choose != 'b'){
         printf(INV);
         return -1;
     }
-    int line1 = getline1(text)+1;
-    int line2 = getline1(text+line1)+1;
-    text += line1+line2;
-    if(choose == 'a') print_lines(text);
-    else print_similar_words(text);
+    char *txt = input;
+    int line1 = getline1(txt)+1;
+    int line2 = getline1(txt+line1)+1;
+    txt += line1+line2;
+    if(choose == 'a') print_lines(txt);
+    else print_similar_words(txt);
+    free(search);
+    free(input);
     return 0;
     
 }
