@@ -17,27 +17,20 @@ void shift_element(int* arr, int i){
 }
 void insertion_sort(int* arr , int len){
     for(int i = 0; i < len; i++){
-        // printf("Iteration = %d\n", i+1);
         if(*(arr+i+1) < *(arr+i) && *(arr+i+1) != 0){
-            // printf("%d, %d\n", *(arr+i), *(arr+i+1));
             int tmp = *(arr+i+1);
-            // printf("tmp = %d\n", tmp);
             int count = 0;
             while(tmp < *(arr+i-count) && count <= i){
                 count++;
             }
-            // printf("element to shift from = %d, count = %d\n", *(arr+i-count+1), count);
             shift_element(arr+i-count+1, count);
             *(arr+i-count+1) = tmp;
-            // printf("array is: ");
-            // printArray(arr, len);
         }
     }  
 }
 
 int main(){
     int *arr = NULL;
-    //Memory allocation
     arr = (int*)calloc(SIZE+1, sizeof(int));
     if(arr == NULL){
         printf("Failed to allocate memory space. Exiting...");
